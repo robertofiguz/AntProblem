@@ -1,10 +1,12 @@
-arraySize = [17,17]
+#need to stop multiple turns without changing spot
+arraySize = [40,40]
 import time
 def setup():
     for a in range(arraySize[0]):
         for i in range(arraySize[1]):
             rect(i*50,a*50,50,50)
-    size(arraySize[0]*50,arraySize[0]*50)
+    size(arraySize[1]*50,arraySize[0]*50)
+
 
 def draw():
     setupFormiga()
@@ -67,10 +69,12 @@ class formiga:
         rect(x,y,50,50)
 
     def movimentar(self):
-        time.sleep(0.5)
+        print(self.position)
+       # time.sleep(0.5)
         self.blackSquare()
         if (self.checkEnd()):
             self.turnRight()
+
         else:
             if (self.headingArray[self.heading]=="N"):
                 self.position[1] -= 1
@@ -87,4 +91,4 @@ class formiga:
         fill(0)
         ellipse((self.position[0] * 50)+25, (self.position[1]*50)+25, self.w, self.h)
 
-Formiga = formiga(position=[ floor(arraySize[0]/2),floor(arraySize[1]/2)], arraySize = arraySize)
+Formiga = formiga(position=[ floor(arraySize[1]/2),floor(arraySize[0]/2)], arraySize = arraySize)
