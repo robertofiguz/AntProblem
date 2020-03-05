@@ -5,8 +5,7 @@ def setup():
     for a in range(arraySize[0]):
         for i in range(arraySize[1]):
             rect(i*50,a*50,50,50)
-    size(arraySize[1]*50,arraySize[0]*50)
-
+    size(arraySize[0]*50,arraySize[1]*50)
 
 def draw():
     setupFormiga()
@@ -64,7 +63,7 @@ class formiga:
     def blackSquare(self):
         x = self.position[0] *50
         y = self.position[1] * 50
-        fill(40,40,40)
+        fill(80,80,80)
         rect(x,y,50,50)
     def getNextSquare(self):
         localPosition = self.position
@@ -79,6 +78,10 @@ class formiga:
             localPosition[0] = self.position[0] + 1
         print(localPosition)
         return localPosition
+    def drawAnt(self):
+        fill(0)
+        ellipse((self.position[0] * 50)+25, (self.position[1]*50)+25, self.body[0], self.body[1])
+        time.sleep(0.20)
     def movimentar(self):
      #   print(self.heading)
        # time.sleep(0.5
@@ -89,7 +92,6 @@ class formiga:
             self.blackSquare()
             self.position = self.getNextSquare()
         self.blackSquare()
-        fill(0)
-        ellipse((self.position[0] * 50)+25, (self.position[1]*50)+25, self.body[1], self.body[0])
+        self.drawAnt()
 
 Formiga = formiga(position=[ floor(arraySize[1]/2),floor(arraySize[0]/2)], arraySize = arraySize)
