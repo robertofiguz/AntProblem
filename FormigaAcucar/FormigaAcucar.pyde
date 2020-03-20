@@ -36,24 +36,24 @@ class Formiga:
             for i in range(Estrutura.Tmatriz[0]):
                # for b in range(2):
                     for a in range(self.currentSet):
-                        if(self.currentSet == min(Estrutura.Tmatriz[0],Estrutura.Tmatriz[1]) and self.movimento):
-                            #iniciar last Set
-                            if(Estrutura.Tmatriz[0] <= Estrutura.Tmatriz[1]):
-                                for a in range(self.currentSet-1):
-                                    self.move("L")
-                            else:
-                                for a in range(self.currentSet):
-                                    self.move("L")
-
-                                for a in range(self.currentSet-1):
-                                    self.move("V")
-                            results.output(1)
-                            self.movimento = False
-
+                        if(self.currentSet == min(Estrutura.Tmatriz[0],Estrutura.Tmatriz[1])):
+                            self.lastSet()
                         self.move("L")
                     for a in range(self.currentSet):
                         self.move("V")
                     self.currentSet  += 1
+
+    def lastSet(self):
+        if(Estrutura.Tmatriz[0] <= Estrutura.Tmatriz[1]):
+            for a in range(self.currentSet-1):
+                self.move("L")
+        else:
+            for a in range(self.currentSet):
+                self.move("L")
+            for a in range(self.currentSet-1):
+                self.move("V")
+        results.output(1)
+        self.movimento = False
 
     def move(self, direction):
         if(direction=="L" and self.movimento):
