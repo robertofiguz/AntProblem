@@ -9,7 +9,7 @@ def draw():
         formiga.moverFormiga() #metodo para movimentar a formiga
      #  print(formiga.position)
 class Estrutura(): #class utilizada para definir a estrutura (matriz)
-    Tmatriz = [3,7] #tamanho da matriz (x,y)
+    Tmatriz = [3,4] #tamanho da matriz (x,y)
     comprimentoRect = 500/Tmatriz[0] #comprimento de cada espaço na matriz correspode ao tamanho dedicado a matriz a divir pelo numero de espaços na matriz
     alturaRect = 500/Tmatriz[1] #altura de cada espaço na matriz correspode ao tamanho dedicado a matriz a divir pelo numero de espaços na matriz
     def desenharMatriz(self):
@@ -23,7 +23,7 @@ class Formiga:
     aRect = Estrutura.alturaRect
     corpo = [cRect/2, aRect*0.8] # tamanho da formiga é metade da largura do quadrado e 80% do comprimento
     heading = 0 #orientação da formiga
-    position = [floor((Tmatriz[0]-1)/2),floor((Tmatriz[1]-1)/2)]#posição da formiga iniciada no centro da matriz
+    position = [floor((Tmatriz[0])/2),floor((Tmatriz[1])/2)]#posição da formiga iniciada no centro da matriz
     print(position)
     movimento = True
     gramasDeAcucar = 1
