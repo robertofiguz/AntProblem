@@ -36,7 +36,7 @@ class Formiga:
             for i in range(Estrutura.Tmatriz[0]):
                # for b in range(2):
                     for a in range(self.currentSet):
-                        if(self.currentSet == min(Estrutura.Tmatriz[0],Estrutura.Tmatriz[1])):
+                        if(self.currentSet == min(Estrutura.Tmatriz[0],Estrutura.Tmatriz[1]) and self.movimento):
                             self.lastSet()
                         self.move("L")
                     for a in range(self.currentSet):
@@ -44,6 +44,7 @@ class Formiga:
                     self.currentSet  += 1
 
     def lastSet(self):
+        print("here")
         if(Estrutura.Tmatriz[0] <= Estrutura.Tmatriz[1]):
             for a in range(self.currentSet-1):
                 self.move("L")
@@ -52,10 +53,12 @@ class Formiga:
                 self.move("L")
             for a in range(self.currentSet-1):
                 self.move("V")
-        results.output(1)
         self.movimento = False
+        results.output(self.gramasDeAcucar)
 
     def move(self, direction):
+        self.desenharFormiga()
+        self.comerAcucar()
         if(direction=="L" and self.movimento):
             if ((self.currentSet)%2):
                 self.position[0] += 1 #moves Right
@@ -68,8 +71,9 @@ class Formiga:
             else:
                 self.position[1] -= 1#moves Up
             print(self.position)
-        self.comerAcucar()
-        self.desenharFormiga()
+        if(self.movimento):
+            self.moveNumber += 1
+            self.gramasDeAcucar += 1
 
     def desenharFormiga(self):
         centro = self.calcularCentro()#calculo do centro do retangulo onde a formiga se encontra na matriz
