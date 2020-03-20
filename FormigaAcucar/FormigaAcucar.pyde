@@ -27,7 +27,7 @@ class Formiga:
     print(position)
     movimento = True
     gramasDeAcucar = 1
-    move = 0
+    moveNumber = 0
     currentSet  = 1
    # velocidade = 200/float(Tmatriz[0]*Tmatriz[1]) #a velocidade da formiga corresponde ao tamanho da matriz a dividir por uma constante, desta forma temos velocidade constante independentemente do tamanho da matriz
 
@@ -40,77 +40,41 @@ class Formiga:
                             #iniciar last Set
                             if(Estrutura.Tmatriz[0] <= Estrutura.Tmatriz[1]):
                                 for a in range(self.currentSet-1):
-                                    if ((self.currentSet )%2):
-                                        self.moveR()
-                                        print(self.position)
-                                    else:
-                                        self.moveL()
-                                        print(self.position)
+                                    self.move("L")
                             else:
                                 for a in range(self.currentSet):
-                                    if ((self.currentSet )%2):
-                                        self.moveR()
-                                        print(self.position)
-                                    else:
-                                        self.moveL()
-                                        print(self.position)
+                                    self.move("L")
 
                                 for a in range(self.currentSet-1):
-                                    if ((self.currentSet )%2):
-                                        self.moveD()
-                                        print(self.position)
-                                    else:
-                                        self.moveU()
-                                        print(self.position)
-
-                            print("Done")
+                                    self.move("V")
                             results.output(1)
                             self.movimento = False
-                            results.output(1)
 
-                        elif ((self.currentSet )%2 and self.movimento):
-                            self.moveR()
-                            print(self.position)
-                        elif(self.movimento):
-                            self.moveL()
-                            print(self.position)
+                        self.move("L")
                     for a in range(self.currentSet):
-                        if ((self.currentSet)%2 and self.movimento):
-                            self.moveD()
-                            print(self.position and self.movimento)
-                        elif (self.movimento):
-                            self.moveU()
-                            print(self.position)
+                        self.move("V")
                     self.currentSet  += 1
-    def moveU(self):
-        self.move += 1
-        self.comerAcucar()
-        self.position[1] -= 1
-        self.desenharFormiga()
-    def moveD(self):
-        self.move += 1
-        self.comerAcucar()
-        self.position[1] += 1
-        self.desenharFormiga()
-    def moveL(self):
-        self.move += 1
-        self.comerAcucar()
-        self.position[0] -= 1
-        self.desenharFormiga()
-    def moveR(self):
-        self.move += 1
-        self.comerAcucar()
-        self.position[0] += 1
-        self.desenharFormiga()
 
+    def move(self, direction):
+        if(direction=="L" and self.movimento):
+            if ((self.currentSet)%2):
+                self.position[0] += 1 #moves Right
+            else:
+                self.position[0] -= 1 #moves Left
+            print(self.position)
+        if(direction=="V" and self.movimento):
+            if ((self.currentSet)%2):
+                self.position[1] += 1 #moves Down
+            else:
+                self.position[1] -= 1#moves Up
+            print(self.position)
+        self.comerAcucar()
+        self.desenharFormiga()
 
     def desenharFormiga(self):
-
         centro = self.calcularCentro()#calculo do centro do retangulo onde a formiga se encontra na matriz
-
         fill(0)
         ellipse(centro[0] + self.cRect/2, centro[1] +  self.aRect/2,  self.corpo[0],  self.corpo[1]) # desenho da formiga - argumentos: x, y, largura, altura
-
 
     def calcularCentro(self):
         x =  self.position[0] *self.cRect # centro do retangulo corresponde ao indice do quadrado * comprimento do retangulo/altura
@@ -124,18 +88,7 @@ class Formiga:
         rect(centro[0],centro[1], self.cRect, self.aRect)
         fill(255,255,255)
         textSize(20)
-        text(str(self.move),centro[0] + self.cRect/2,centro[1] +  self.aRect/2)
-
-
-    def turnRight(self):
-        #if (self.rotacoes == 5): # se o numero de rotações consecutivas é igual a 2 a formiga terá chegado ao fim do percurso
-         #   results.output(self.gramasAcucar) #metodo utilizado para fazer display dos resultados, passando o parametro gramasAcucar
-        if( self.heading<3):
-            self.heading += 1 #mudar a orientação incrementando o inice
-        else:
-            self.heading = 0 #reset do inice quando se encontra no ultimo indice
-        self.corpo = reverse(self.corpo) #inverter as medidas do corpo da formiga (rotação de 90º)
-
+        text(str(self.moveNumber),centro[0] + self.cRect/2,centro[1] +  self.aRect/2)
 
 class Results:
     def output(self,gramasAcucar):
