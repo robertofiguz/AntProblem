@@ -7,7 +7,7 @@ def draw():
     formiga.moverFormiga() #metodo para movimentar a formiga
 
 class Estrutura(): #class utilizada para definir a estrutura (matriz)
-    Tmatriz = [5,20] #tamanho da matriz (x,y)
+    Tmatriz = [4,4] #tamanho da matriz (x,y)
     cRect = 500/Tmatriz[0] #comprimento de cada espaço na matriz correspode ao tamanho dedicado a matriz a divir pelo numero de espaços na matriz
     aRect = 500/Tmatriz[1] #altura de cada espaço na matriz correspode ao tamanho dedicado a matriz a divir pelo numero de espaços na matriz
     def desenharMatriz(self):
