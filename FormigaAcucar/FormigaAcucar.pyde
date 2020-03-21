@@ -1,11 +1,11 @@
-import time
+import time #importa biblioteca time para definir a velocidade da formiga
 def setup():
     size(1000,500) #cria um canvas de 1000x500 sendo que a matriz estara em apenas 500x500
     estrutura.desenharMatriz() #Cria a matriz
 def draw():
     if formiga.movimento: #verifica que não chegou ao final do percurso
         formiga.moverFormiga() #metodo para movimentar a formiga
-     #  print(formiga.position)
+
 class Estrutura(): #class utilizada para definir a estrutura (matriz)
     Tmatriz = [4,4] #tamanho da matriz (x,y)
     comprimentoRect = 500/Tmatriz[0] #comprimento de cada espaço na matriz correspode ao tamanho dedicado a matriz a divir pelo numero de espaços na matriz
@@ -22,9 +22,9 @@ class Formiga:
     position = [floor((Tmatriz[0]-1)/2),floor((Tmatriz[1]-1)/2)]#posição da formiga iniciada no centro da matriz
     movimento = True
     gramasDeAcucar = 1
-    moveNumber = 0
+    moveNumber = 1
     currentSet  = 1
-  def moverFormiga(self):
+    def moverFormiga(self):
             for i in range(Estrutura.Tmatriz[0]):
                # for b in range(2):
                     for i in range(self.currentSet):
@@ -44,7 +44,6 @@ class Formiga:
                 self.move("L")
             for i in range(self.currentSet-1):
                 self.move("V")
-        self.movimento = False
         results.output(self.gramasDeAcucar)
 
     def move(self, direction):
