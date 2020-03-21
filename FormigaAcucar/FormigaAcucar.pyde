@@ -2,12 +2,12 @@ import time #importa biblioteca time para definir a velocidade da formiga
 def setup():
     size(1000,500) #cria um canvas de 1000x500 sendo que a matriz estara em apenas 500x500
     estrutura.desenharMatriz() #Cria a matriz
+    formiga.comerAcucar()
 def draw():
-    if formiga.movimento: #verifica que não chegou ao final do percurso
-        formiga.moverFormiga() #metodo para movimentar a formiga
+    formiga.moverFormiga() #metodo para movimentar a formiga
 
 class Estrutura(): #class utilizada para definir a estrutura (matriz)
-    Tmatriz = [4,4] #tamanho da matriz (x,y)
+    Tmatriz = [5,20] #tamanho da matriz (x,y)
     comprimentoRect = 500/Tmatriz[0] #comprimento de cada espaço na matriz correspode ao tamanho dedicado a matriz a divir pelo numero de espaços na matriz
     alturaRect = 500/Tmatriz[1] #altura de cada espaço na matriz correspode ao tamanho dedicado a matriz a divir pelo numero de espaços na matriz
     def desenharMatriz(self):
@@ -24,9 +24,11 @@ class Formiga:
     gramasDeAcucar = 1
     moveNumber = 1
     currentSet  = 1
+
     def moverFormiga(self):
             for i in range(Estrutura.Tmatriz[0]):
                # for b in range(2):
+
                     for i in range(self.currentSet):
                         if(self.currentSet == min(Estrutura.Tmatriz[0],Estrutura.Tmatriz[1]) and self.movimento):
                             self.lastSet()
@@ -34,7 +36,6 @@ class Formiga:
                     for i in range(self.currentSet):
                         self.move("V")
                     self.currentSet  += 1
-
     def lastSet(self):
         if(Estrutura.Tmatriz[0] <= Estrutura.Tmatriz[1]):
             for i in range(self.currentSet-1):
@@ -47,7 +48,6 @@ class Formiga:
         results.output(self.gramasDeAcucar)
 
     def move(self, direction):
-        self.comerAcucar()
         if(direction=="L" and self.movimento):
             if ((self.currentSet)%2):
                 self.position[0] += 1 #moves Right
@@ -61,7 +61,7 @@ class Formiga:
         if(self.movimento):
             self.moveNumber += 1
             self.gramasDeAcucar += 1
-
+            self.comerAcucar()
     def calcularCentro(self):
         x =  self.position[0] * self.cRect # centro do retangulo corresponde ao indice do quadrado * comprimento do retangulo/altura
         y =  self.position[1] * self.aRect
@@ -70,7 +70,9 @@ class Formiga:
     def comerAcucar(self): #assinalar local onde a formiga já passou
         centro = self.calcularCentro()
         fill(0,0,0)
-        textSize(20)
+        fontSize = 10 + (-(max(estrutura.Tmatriz[0],estrutura.Tmatriz[1])))+20
+        print(fontSize)
+        textSize(fontSize)
         text(str(self.moveNumber),centro[0] + self.cRect/2 ,centro[1] +  self.aRect/2 )
 class Results:
     def output(self,gramasAcucar):
