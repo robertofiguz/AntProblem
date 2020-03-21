@@ -16,37 +16,35 @@ class Estrutura(): #class utilizada para definir a estrutura (matriz)
               rect(x*self.comprimentoRect,y*self.alturaRect,self.comprimentoRect,self.alturaRect) #argumentos: coordenada X, coordenada Y, largura, altura
 
 class Formiga:
-    Tmatriz = Estrutura.Tmatriz
     cRect = Estrutura.comprimentoRect
     aRect = Estrutura.alturaRect
     position = [floor((Tmatriz[0]-1)/2),floor((Tmatriz[1]-1)/2)]#posição da formiga iniciada no centro da matriz
     movimento = True
-    gramasDeAcucar = 1
     moveNumber = 1
     currentSet  = 1
 
     def moverFormiga(self):
-        for i in range(self.Tmatriz[0]):
+        for i in range(Estrutura.Tmatriz[0]):
             for i in range(self.currentSet):
-                if(self.currentSet == min(self.Tmatriz[0],self.Tmatriz[1])):
+                if(self.currentSet == min(Estrutura.Tmatriz[0],Estrutura.Tmatriz[1])):
                     self.lastSet()
-                self.move("L")
+                self.direcao("L")
             for i in range(self.currentSet):
-                self.move("V")
+                self.direcao("V")
             self.currentSet  += 1
 
     def lastSet(self):
-        if(self.Tmatriz[0] <= self.Tmatriz[1]):
+        if(Estrutura.Tmatriz[0] <= Estrutura.Tmatriz[1]):
             for i in range(self.currentSet-1):
-                self.move("L")
+                self.direcao("L")
         else:
             for i in range(self.currentSet):
-                self.move("L")
+                self.direcao("L")
             for i in range(self.currentSet-1):
-                self.move("V")
-        results.output(self.gramasDeAcucar)
+                self.direcao("V")
+        results.output(self.moveNumber)
 
-    def move(self, direction):
+    def direcao(self, direction):
         if(self.movimento):
             if(direction=="L"):
                 if ((self.currentSet)%2):
@@ -59,8 +57,8 @@ class Formiga:
                 else:
                     self.position[1] -= 1#moves Up
             self.moveNumber += 1
-            self.gramasDeAcucar += 1
             self.comerAcucar()
+
     def calcularCentro(self):
         x =  self.position[0] * self.cRect # centro do retangulo corresponde ao indice do quadrado * comprimento do retangulo/altura
         y =  self.position[1] * self.aRect
@@ -71,16 +69,15 @@ class Formiga:
         fill(120,120,120)
         rect(centro[0],centro[1], self.cRect, self.aRect)
         fill(255,255,255)
-        fontSize = 10 + (-(max(self.Tmatriz[0],self.Tmatriz[1])))+20
+        fontSize = 10 + (-(max(Estrutura.Tmatriz[0],Estrutura.Tmatriz[1])))+20
         textSize(fontSize)
         text(str(self.moveNumber),centro[0] + self.cRect/2 ,centro[1] +  self.aRect/2 )
 
 class Results:
     def output(self,gramasAcucar):
         Formiga.movimento = False #define o movimento como falso, desta forma indicando que chegou ao fim do percurso
-        self.gramasAcucar = gramasAcucar
-        gramasPorColetar = estrutura.Tmatriz[0]*estrutura.Tmatriz[1] - self.gramasAcucar #calculo das gramas de açucar que não foram apanhadas utilizando o numero total de retangulos e subtraindo o numero de apanhados
-        outputMessage = "Gramas coletadas: " + str(self.gramasAcucar) + "\nGramas por coletar: " + str(gramasPorColetar) # mensagem de output
+        gramasPorColetar = estrutura.Tmatriz[0]*estrutura.Tmatriz[1] - gramasAcucar #calculo das gramas de açucar que não foram apanhadas utilizando o numero total de retangulos e subtraindo o numero de apanhados
+        outputMessage = "Gramas coletadas: " + str(gramasAcucar) + "\nGramas por coletar: " + str(gramasPorColetar) # mensagem de output
         textSize(20)
         text(str(outputMessage),600,100)
 
