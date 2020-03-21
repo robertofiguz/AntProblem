@@ -26,18 +26,17 @@ class Formiga:
     currentSet  = 1
 
     def moverFormiga(self):
-            for i in range(Estrutura.Tmatriz[0]):
-               # for b in range(2):
+        for i in range(self.Tmatriz[0]):
+            for i in range(self.currentSet):
+                if(self.currentSet == min(self.Tmatriz[0],self.Tmatriz[1])):
+                    self.lastSet()
+                self.move("L")
+            for i in range(self.currentSet):
+                self.move("V")
+            self.currentSet  += 1
 
-                    for i in range(self.currentSet):
-                        if(self.currentSet == min(Estrutura.Tmatriz[0],Estrutura.Tmatriz[1]) and self.movimento):
-                            self.lastSet()
-                        self.move("L")
-                    for i in range(self.currentSet):
-                        self.move("V")
-                    self.currentSet  += 1
     def lastSet(self):
-        if(Estrutura.Tmatriz[0] <= Estrutura.Tmatriz[1]):
+        if(self.Tmatriz[0] <= self.Tmatriz[1]):
             for i in range(self.currentSet-1):
                 self.move("L")
         else:
@@ -48,17 +47,17 @@ class Formiga:
         results.output(self.gramasDeAcucar)
 
     def move(self, direction):
-        if(direction=="L" and self.movimento):
-            if ((self.currentSet)%2):
-                self.position[0] += 1 #moves Right
-            else:
-                self.position[0] -= 1 #moves Left
-        if(direction=="V" and self.movimento):
-            if ((self.currentSet)%2):
-                self.position[1] += 1 #moves Down
-            else:
-                self.position[1] -= 1#moves Up
         if(self.movimento):
+            if(direction=="L"):
+                if ((self.currentSet)%2):
+                    self.position[0] += 1 #moves Right
+                else:
+                    self.position[0] -= 1 #moves Left
+            if(direction=="V"):
+                if ((self.currentSet)%2):
+                    self.position[1] += 1 #moves Down
+                else:
+                    self.position[1] -= 1#moves Up
             self.moveNumber += 1
             self.gramasDeAcucar += 1
             self.comerAcucar()
@@ -69,11 +68,13 @@ class Formiga:
 
     def comerAcucar(self): #assinalar local onde a formiga já passou
         centro = self.calcularCentro()
-        fill(0,0,0)
-        fontSize = 10 + (-(max(estrutura.Tmatriz[0],estrutura.Tmatriz[1])))+20
-        print(fontSize)
+        fill(120,120,120)
+        rect(centro[0],centro[1], self.cRect, self.aRect)
+        fill(255,255,255)
+        fontSize = 10 + (-(max(self.Tmatriz[0],self.Tmatriz[1])))+20
         textSize(fontSize)
         text(str(self.moveNumber),centro[0] + self.cRect/2 ,centro[1] +  self.aRect/2 )
+
 class Results:
     def output(self,gramasAcucar):
         Formiga.movimento = False #define o movimento como falso, desta forma indicando que chegou ao fim do percurso
